@@ -358,16 +358,23 @@ const API = {
         })
     },
 
-    notifications: {
-        getAll: () => request('/notifications'),
-        markAsRead: (id) => request(`/notifications/${id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({ read: true })
-        }),
-        delete: (id) => request(`/notifications/${id}`, {
-            method: 'DELETE'
-        })
-    }
-};
+notifications: {
+    getAll: async () => {
+        const res = await request('/notifications');
+        console.log("Notification Response:", res);
+        return res;
+    },
+
+    markAsRead: (id) => request(`/notifications/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ read: true })
+    }),
+
+    delete: (id) => request(`/notifications/${id}`, {
+        method: 'DELETE'
+    })
+}
+
+};   // <-- YE MISSING THA
 
 window.API = API;

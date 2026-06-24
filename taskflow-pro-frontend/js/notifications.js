@@ -39,16 +39,21 @@ const Notifications = {
         Utils.events.off('notification-received', this.handleNewNotification);
         Utils.events.on('notification-received', (notif) => this.handleNewNotification(notif));
     },
+async loadNotifications() {
+    try {
+        const data = await API.notifications.getAll();
 
-    async loadNotifications() {
-        try {
-            const data = await API.notifications.getAll();
-            this.allNotifications = data;
-            this.render();
-        } catch (e) {
-            console.error('Failed to load notifications:', e);
-        }
-    },
+        console.log("Notifications API:", data);
+
+        this.allNotifications = Array.isArray(data)
+            ? data
+            : (data.data || data.notifications || []);
+
+        this.render();
+    } catch (e) {
+        console.error('Failed to load notifications:', e);
+    }
+},
 
     render() {
         const listContainer = Utils.qs('#notif-dropdown-list');
