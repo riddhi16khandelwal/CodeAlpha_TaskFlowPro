@@ -83,8 +83,9 @@ const Auth = {
         try {
             this.setLoading(submitBtn, true);
             const data = await API.auth.login(email, password);
+               localStorage.setItem('tf_token', data.token);
+    localStorage.setItem('tf_current_user', JSON.stringify(data.user));
             
-            // Remember email if checked
             if (rememberMe) {
                 localStorage.setItem('tf_remember_email', email);
             } else {
@@ -140,7 +141,8 @@ const Auth = {
         try {
             this.setLoading(submitBtn, true);
             const data = await API.auth.register(name, email, password);
-            
+              localStorage.setItem('tf_token', data.token);
+    localStorage.setItem('tf_current_user', JSON.stringify(data.user));
             this.currentUser = data.user;
             Utils.toast('Registration successful!', 'success');
 
