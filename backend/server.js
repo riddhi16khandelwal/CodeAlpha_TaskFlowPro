@@ -17,17 +17,10 @@ const app = express();
 
 // ─── Core Middleware ──────────────────────────────────────────
 app.use(cors({
-  origin: [
-    'http://localhost:3000',   // React / Next.js frontend
-    'http://localhost:5173',   // Vite frontend
-    'http://127.0.0.1:5500',  // Live Server
-    '*',                       // Allow all during development
-  ],
-  credentials: true,
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
