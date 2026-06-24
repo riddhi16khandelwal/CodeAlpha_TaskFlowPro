@@ -112,15 +112,23 @@ const getProjectTasks = asyncHandler(async (req, res) => {
 const getMyTasks = asyncHandler(async (req, res) => {
   const { status, priority, overdue, page = 1, limit = 20 } = req.query;
 
-  const filter = { assignees: req.user._id, isArchived: false };
-  if (status)   filter.status   = status;
+  const filter = {
+    $or: [
+      { assignees: req.user._id },
+      { createdBy: req.user._id }
+    ],
+    isArchived: false
+  };
+
+  if (status) filter.status = status;
   if (priority) filter.priority = priority;
+
   if (overdue === 'true') {
     filter.dueDate = { $lt: new Date() };
-    filter.status  = { $ne: 'completed' };
+    filter.status = { $ne: 'completed' };
   }
 
-  const skip  = (parseInt(page) - 1) * parseInt(limit);
+  const skip = (parseInt(page) - 1) * parseInt(limit);
   const total = await Task.countDocuments(filter);
 
   const tasks = await Task.find(filter)
@@ -131,8 +139,13 @@ const getMyTasks = asyncHandler(async (req, res) => {
     .skip(skip)
     .limit(parseInt(limit));
 
-  sendSuccess(res, 200, 'Your tasks fetched successfully', tasks,
-    paginationMeta(total, parseInt(page), parseInt(limit)));
+  sendSuccess(
+    res,
+    200,
+    'Your tasks fetched successfully',
+    tasks,
+    paginationMeta(total, parseInt(page), parseInt(limit))
+  );
 });
 
 // ─────────────────────────────────────────────────────────────

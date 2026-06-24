@@ -14,7 +14,11 @@ const Dashboard = {
             const [tasks, projects] = await Promise.all([
                 API.tasks.getAll(),
                 API.projects.getAll()
+
+                
             ]);
+            console.log("DASHBOARD TASKS =", tasks);
+            console.log("DASHBOARD PROJECTS =", projects);
 
             this.renderStats(tasks);
             this.renderProgress(tasks);
@@ -219,8 +223,8 @@ const Dashboard = {
         const statusClass = task.status === 'completed' ? 'completed' : '';
 
         return `
-            <div class="task-list-row ${statusClass}" data-id="${task.id}">
-                <button class="task-status-btn" onclick="Dashboard.toggleTaskStatus('${task.id}')">
+            <div class="task-list-row ${statusClass}" data-id="${task._id}">
+                <button class="task-status-btn" onclick="Dashboard.toggleTaskStatus('${task._id}')">
                     <span class="material-icons-round">${statusIcon}</span>
                 </button>
                 <div class="task-row-details">
@@ -240,7 +244,7 @@ const Dashboard = {
     async toggleTaskStatus(id) {
         try {
             const tasks = await API.tasks.getAll();
-            const task = tasks.find(t => t.id === id);
+            const task = tasks.find(t => t._id === id);
             if (!task) return;
 
             const newStatus = task.status === 'completed' ? 'todo' : 'completed';

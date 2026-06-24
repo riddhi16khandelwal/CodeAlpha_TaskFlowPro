@@ -112,6 +112,7 @@ const Tasks = {
                 API.projects.getAll()
             ]);
             this.allTasks = tasksData;
+            console.log("Projects Data =", projectsData);
             this.projects = projectsData;
 
             // Populate project dropdown filter and form project choices
@@ -122,22 +123,38 @@ const Tasks = {
     },
 
     populateProjectDropdowns() {
-        const filterDropdown = Utils.qs('#task-filter-project');
-        const formDropdown = Utils.qs('#task-form-project');
+    console.log("Projects received =", this.projects);
 
-        const optionsHtml = `
-            <option value="all">All Projects</option>
-            ${this.projects.map(p => `<option value="${p._id}">${p.name}</option>`).join('')}
-        `;
+    const filterDropdown = Utils.qs('#task-filter-project');
+    const formDropdown = Utils.qs('#task-form-project');
 
-        const formOptionsHtml = `
-            <option value="">No Project</option>
-            ${this.projects.map(p => `<option value="${p._id}">${p.name}</option>`).join('')}
-        `;
+    console.log("Filter Dropdown =", filterDropdown);
+    console.log("Form Dropdown =", formDropdown);
 
-        if (filterDropdown) filterDropdown.innerHTML = optionsHtml;
-        if (formDropdown) formDropdown.innerHTML = formOptionsHtml;
-    },
+    if (!Array.isArray(this.projects)) {
+        console.error("Projects is not an array:", this.projects);
+        return;
+    }
+
+    const optionsHtml = `
+        <option value="all">All Projects</option>
+        ${this.projects.map(p =>
+            `<option value="${p._id}">${p.name}</option>`
+        ).join('')}
+    `;
+
+    const formOptionsHtml = `
+        <option value="">Select Project</option>
+        ${this.projects.map(p =>
+            `<option value="${p._id}">${p.name}</option>`
+        ).join('')}
+    `;
+
+    if (filterDropdown) filterDropdown.innerHTML = optionsHtml;
+    if (formDropdown) formDropdown.innerHTML = formOptionsHtml;
+
+    console.log("Dropdown populated");
+},
 
     // ----------------------------------------------------
     // Filtering & Sorting Computations
@@ -165,7 +182,9 @@ const Tasks = {
 
         // Project Filter
         if (this.filters.project !== 'all') {
-            list = list.filter(t => t.projectId === this.filters.project);
+            list = list.filter(t =>
+    String(t.project?._id || t.project) === String(this.filters.project)
+);
         }
 
         // Apply Sorting
@@ -212,9 +231,12 @@ const Tasks = {
     // Kanban Board Render & Drag-and-Drop
     // ----------------------------------------------------
     renderKanban() {
+        console.log("ALL TASKS =", this.allTasks);
+console.log("TASK STATUSES =", this.allTasks.map(t => t.status));
         const columns = {
             'todo': Utils.qs('#kanban-col-todo'),
             'in-progress': Utils.qs('#kanban-col-inprogress'),
+            'inprogress': Utils.qs('#kanban-col-inprogress'),
             'completed': Utils.qs('#kanban-col-completed')
         };
 
@@ -234,15 +256,20 @@ const Tasks = {
 
             const listContainer = Utils.qs('.kanban-cards-list', col);
             if (!listContainer) return;
-
-            const project = this.projects.find(p => p.id === task.projectId);
+console.log("TASK =", task);
+console.log("STATUS =", task.status);
+console.log("COLUMN FOUND =", columns[task.status]);
+            const project = this.projects.find(
+    p => String(p._id) === String(task.project?._id || task.project)
+    
+);
             const projName = project ? project.name : 'Personal';
 
             const card = Utils.el('div', {
                 className: 'card kanban-card',
                 draggable: 'true',
                 ondragstart: (e) => {
-                    e.dataTransfer.setData('text/plain', task.id);
+                    e.dataTransfer.setData('text/plain', task._id);
                     card.classList.add('dragging');
                 },
                 ondragend: () => {
@@ -274,7 +301,7 @@ const Tasks = {
                     Utils.el('button', { 
                         className: 'btn-icon danger',
                         title: 'Delete Task',
-                        onclick: (e) => { e.stopPropagation(); this.confirmDelete(task.id); }
+                        onclick: (e) => { e.stopPropagation(); this.confirmDelete(task._id); }
                     }, Utils.el('span', { className: 'material-icons-round' }, 'delete'))
                 )
             );
@@ -309,7 +336,7 @@ const Tasks = {
                 const taskId = e.dataTransfer.getData('text/plain');
                 
                 try {
-                    const taskIndex = this.allTasks.findIndex(t => t.id === taskId);
+                    const taskIndex = this.allTasks.findIndex(t => t._id === taskId);
                     if (taskIndex !== -1 && this.allTasks[taskIndex].status !== statusKey) {
                         // Update on local DB
                         this.allTasks[taskIndex].status = statusKey;
@@ -361,7 +388,7 @@ const Tasks = {
         }
 
         tableBody.innerHTML = paginated.map(task => {
-            const project = this.projects.find(p => p.id === task.projectId);
+            const project = this.projects.find(p => p._id === task.projectId);
             const projName = project ? project.name : 'Personal';
             const statusIcon = task.status === 'completed' ? 'check_circle' : 'radio_button_unchecked';
             const statusClass = task.status === 'completed' ? 'completed' : '';
@@ -369,7 +396,7 @@ const Tasks = {
             return `
                 <tr class="${statusClass}">
                     <td>
-                        <button class="task-status-btn" onclick="Tasks.toggleStatus('${task.id}')">
+                        <button class="task-status-btn" onclick="Tasks.toggleStatus('${task._id}')">
                             <span class="material-icons-round">${statusIcon}</span>
                         </button>
                     </td>
@@ -384,10 +411,10 @@ const Tasks = {
                     <td>${Utils.formatDate(task.dueDate)}</td>
                     <td>
                         <div class="table-actions">
-                            <button class="btn-icon" onclick="Tasks.openEditModalById('${task.id}')">
+                            <button class="btn-icon" onclick="Tasks.openEditModalById('${task._id}')">
                                 <span class="material-icons-round">edit</span>
                             </button>
-                            <button class="btn-icon danger" onclick="Tasks.confirmDelete('${task.id}')">
+                            <button class="btn-icon danger" onclick="Tasks.confirmDelete('${task._id}')">
                                 <span class="material-icons-round">delete</span>
                             </button>
                         </div>
@@ -421,7 +448,7 @@ const Tasks = {
 
     async toggleStatus(id) {
         try {
-            const task = this.allTasks.find(t => t.id === id);
+            const task = this.allTasks.find(t => t._id === id);
             if (!task) return;
 
             const nextStatus = task.status === 'completed' ? 'todo' : 'completed';
@@ -458,7 +485,7 @@ const Tasks = {
         if (!modal) return;
 
         Utils.qs('#task-modal-title').textContent = 'Edit Task';
-        Utils.qs('#task-form-id').value = task.id;
+        Utils.qs('#task-form-id').value = task._id;
         Utils.qs('#task-form-title').value = task.title;
         Utils.qs('#task-form-desc').value = task.description || '';
         Utils.qs('#task-form-priority').value = task.priority;
@@ -471,7 +498,7 @@ const Tasks = {
     },
 
     openEditModalById(id) {
-        const task = this.allTasks.find(t => t.id === id);
+        const task = this.allTasks.find(t => t._id === id);
         if (task) this.openEditModal(task);
     },
 
@@ -510,6 +537,9 @@ const Tasks = {
                 Utils.toast('Task updated successfully!', 'success');
             } else {
                 // Create
+                console.log("Selected Project:", Utils.qs('#task-form-project').value);
+
+                console.log("Task Data:", taskData);
                 await API.tasks.create(taskData);
                 Utils.toast('Task created successfully!', 'success');
             }

@@ -45,20 +45,27 @@ const Projects = {
     },
 
     computeProjectsProgress() {
-        this.allProjects.forEach(proj => {
-           const projTasks = this.tasks.filter(t => t.projectId === proj._id);
-            if (projTasks.length === 0) {
-                // If no tasks, fall back to stored progress or 0
-                proj.totalTasks = 0;
-                proj.completedTasks = 0;
-                proj.progress = proj.progress || 0;
-            } else {
-                proj.totalTasks = projTasks.length;
-                proj.completedTasks = projTasks.filter(t => t.status === 'completed').length;
-                proj.progress = Math.round((proj.completedTasks / proj.totalTasks) * 100);
-            }
+    this.allProjects.forEach(proj => {
+
+        const projTasks = this.tasks.filter(t => {
+            const taskProjectId =
+                t.project?._id || t.project;
+
+            return String(taskProjectId) === String(proj._id);
         });
-    },
+
+        proj.totalTasks = projTasks.length;
+        proj.completedTasks = projTasks.filter(
+            t => t.status === 'completed'
+        ).length;
+
+        proj.progress = proj.totalTasks > 0
+            ? Math.round(
+                (proj.completedTasks / proj.totalTasks) * 100
+              )
+            : 0;
+    });
+},
 
     render() {
         const grid = Utils.qs('#projects-grid');
@@ -108,7 +115,7 @@ grid.innerHTML = this.allProjects.map(proj => {
                             <span class="meta-stat-label">Deadline</span>
                             <span class="meta-stat-value text-danger">
                                 <span class="material-icons-round inline-icon">event</span>
-                ${proj.deadline ? Utils.formatDate(proj.deadline) : 'No deadline'}
+                ${proj.dueDate ? Utils.formatDate(proj.dueDate) : 'No deadline'}
                             </span>
                         </div>
                     </div>
@@ -198,7 +205,12 @@ grid.innerHTML = this.allProjects.map(proj => {
             team.push(Auth.currentUser.name); // Default assign creator
         }
 
-        const projData = { name, description, deadline, team };
+       const projData = {
+    name,
+    description,
+    dueDate: deadline,
+    team
+};
 
         try {
             Auth.setLoading(submitBtn, true);
