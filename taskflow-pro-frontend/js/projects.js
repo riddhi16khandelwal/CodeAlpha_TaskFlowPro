@@ -46,7 +46,7 @@ const Projects = {
 
     computeProjectsProgress() {
         this.allProjects.forEach(proj => {
-            const projTasks = this.tasks.filter(t => t.projectId === proj.id);
+           const projTasks = this.tasks.filter(t => t.projectId === proj._id);
             if (projTasks.length === 0) {
                 // If no tasks, fall back to stored progress or 0
                 proj.totalTasks = 0;
@@ -75,9 +75,11 @@ const Projects = {
             `;
             return;
         }
+grid.innerHTML = this.allProjects.map(proj => {
 
-        grid.innerHTML = this.allProjects.map(proj => {
-            const initialsListHtml = proj.team.map(name => {
+    console.log("PROJECT DATA =", proj);
+
+    const initialsListHtml = (proj.team || []).map(name => {
                 const init = name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
                 return `<div class="team-bubble" title="${name}">${init}</div>`;
             }).join('');
@@ -87,10 +89,10 @@ const Projects = {
                     <div class="project-card-header">
                         <h3 class="project-card-title">${proj.name}</h3>
                         <div class="project-card-actions">
-                            <button class="btn-icon" onclick="Projects.openEditModalById('${proj.id}')">
+                            <button class="btn-icon" onclick="Projects.openEditModalById('${proj._id}')">
                                 <span class="material-icons-round">edit</span>
                             </button>
-                            <button class="btn-icon danger" onclick="Projects.confirmDelete('${proj.id}')">
+                            <button class="btn-icon danger" onclick="Projects.confirmDelete('${proj._id}')">
                                 <span class="material-icons-round">delete</span>
                             </button>
                         </div>
@@ -106,7 +108,7 @@ const Projects = {
                             <span class="meta-stat-label">Deadline</span>
                             <span class="meta-stat-value text-danger">
                                 <span class="material-icons-round inline-icon">event</span>
-                                ${Utils.formatDate(proj.deadline)}
+                ${proj.deadline ? Utils.formatDate(proj.deadline) : 'No deadline'}
                             </span>
                         </div>
                     </div>
@@ -152,17 +154,17 @@ const Projects = {
         if (!modal) return;
 
         Utils.qs('#project-modal-title').textContent = 'Edit Project';
-        Utils.qs('#project-form-id').value = proj.id;
+        Utils.qs('#project-form-id').value = proj._id;
         Utils.qs('#project-form-name').value = proj.name;
         Utils.qs('#project-form-desc').value = proj.description || '';
         Utils.qs('#project-form-deadline').value = proj.deadline || '';
-        Utils.qs('#project-form-team').value = proj.team.join(', ');
+       Utils.qs('#project-form-team').value = (proj.team || []).join(', ');
 
         modal.classList.add('active');
     },
 
     openEditModalById(id) {
-        const proj = this.allProjects.find(p => p.id === id);
+        const proj = this.allProjects.find(p => p._id === id);
         if (proj) this.openEditModal(proj);
     },
 
