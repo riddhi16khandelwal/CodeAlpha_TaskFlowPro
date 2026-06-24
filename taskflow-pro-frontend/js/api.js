@@ -320,8 +320,11 @@ const API = {
         })
     },
 
-    tasks: {
-        getAll: () => request('/tasks'),
+ tasks: {
+    getAll: async () => {
+        const res = await request('/tasks/my');
+        return res.data || [];
+    },
         create: (taskData) => request('/tasks', {
             method: 'POST',
             body: JSON.stringify(taskData)
@@ -335,8 +338,11 @@ const API = {
         })
     },
 
-    projects: {
-        getAll: () => request('/projects'),
+  projects: {
+    getAll: async () => {
+        const res = await request('/projects');
+        return res.data || [];
+    },
         create: (projData) => request('/projects', {
             method: 'POST',
             body: JSON.stringify(projData)
