@@ -82,25 +82,19 @@ const Auth = {
 
         try {
             this.setLoading(submitBtn, true);
-            const data = await API.auth.login(email, password);
-               localStorage.setItem('tf_token', data.token);
-    localStorage.setItem('tf_current_user', JSON.stringify(data.user));
-            
-            if (rememberMe) {
-                localStorage.setItem('tf_remember_email', email);
-            } else {
-                localStorage.removeItem('tf_remember_email');
-            }
+           const data = await API.auth.login(email, password);
 
-            this.currentUser = data.user;
-            Utils.toast(`Welcome back, ${data.user.name}!`, 'success');
-            
-            // Re-render components and transition to dashboard
-            setTimeout(() => {
-                this.setLoading(submitBtn, false);
-                window.location.hash = '#/dashboard';
-                Utils.events.emit('auth-changed', data.user);
-            }, 500);
+localStorage.setItem('tf_token', data.data.token);
+localStorage.setItem('tf_current_user', JSON.stringify(data.data.user));
+
+this.currentUser = data.data.user;
+Utils.toast(`Welcome back, ${data.data.user.name}!`, 'success');
+
+setTimeout(() => {
+    this.setLoading(submitBtn, false);
+    window.location.hash = '#/dashboard';
+    Utils.events.emit('auth-changed', data.data.user);
+}, 500);
 
         } catch (err) {
             this.setLoading(submitBtn, false);
@@ -140,17 +134,20 @@ const Auth = {
 
         try {
             this.setLoading(submitBtn, true);
-            const data = await API.auth.register(name, email, password);
-              localStorage.setItem('tf_token', data.token);
-    localStorage.setItem('tf_current_user', JSON.stringify(data.user));
-            this.currentUser = data.user;
-            Utils.toast('Registration successful!', 'success');
+          const data = await API.auth.register(name, email, password);
 
-            setTimeout(() => {
-                this.setLoading(submitBtn, false);
-                window.location.hash = '#/dashboard';
-                Utils.events.emit('auth-changed', data.user);
-            }, 500);
+localStorage.setItem('tf_token', data.data.token);
+localStorage.setItem('tf_current_user', JSON.stringify(data.data.user));
+
+this.currentUser = data.data.user;
+
+Utils.toast('Registration successful!', 'success');
+
+setTimeout(() => {
+    this.setLoading(submitBtn, false);
+    window.location.hash = '#/dashboard';
+    Utils.events.emit('auth-changed', data.data.user);
+}, 500);
 
         } catch (err) {
             this.setLoading(submitBtn, false);
