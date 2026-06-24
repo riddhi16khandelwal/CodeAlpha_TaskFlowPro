@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow Pro - Premium SaaS Dashboard</title>
+    <!-- Material Icons Rounded -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="logged-out">
+
+    <!-- =======================================================================
+         Authentication View Container (Login, Register, Forgot, Reset)
+         ======================================================================= -->
+    <div id="auth-view" class="app-view">
+        <div class="auth-card-container">
+            
+            <!-- Login Card -->
+            <div id="login-card" class="card auth-card active">
+                <div class="auth-logo-wrapper">
+                    <div class="auth-logo-icon">
+                        <span class="material-icons-round">bolt</span>
+                    </div>
+                    <span class="auth-logo-text">TaskFlow Pro</span>
+                </div>
+                <div class="auth-header">
+                    <h2>Welcome Back</h2>
+                    <p>Enter your details to access your workspace.</p>
+                </div>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label class="form-label" for="login-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons-round input-icon">email</span>
+                            <input type="email" id="login-email" class="form-input" placeholder="name@company.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">Password</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons-round input-icon">lock</span>
+                            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    <div class="form-meta">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="login-remember">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" id="link-to-forgot">Forgot Password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+                </form>
+                <div class="auth-footer">
+                    <span>Don't have an account? </span>
+                    <a href="#" id="link-to-register">Create workspace</a>
+                </div>
+            </div>
+
+            <!-- Register Card -->
+            <div id="register-card" class="card auth-card">
+                <div class="auth-logo-wrapper">
+                    <div class="auth-logo-icon">
+                        <span class="material-icons-round">bolt</span>
+                    </div>
+                    <span class="auth-logo-text">TaskFlow Pro</span>
+                </div>
+                <div class="auth-header">
+                    <h2>Get Started</h2>
+                    <p>Create a personal workspace for your team.</p>
+                </div>
+                <form id="register-form">
+                    <div class="form-group">
+                        <label class="form-label" for="register-name">Full Name</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons-round input-icon">person</span>
+                            <input type="text" id="register-name" class="form-input" placeholder="Alex Rivera" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="register-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons-round input-icon">email</span>
+                            <input type="email" id="register-email" class="form-input" placeholder="name@company.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div>
+                            <label class="form-label" for="register-password">Password</label>
+                            <div class="input-wrapper">
+                                <span class="material-icons-round input-icon">lock</span>
+                                <input type="password" id="register-password" class="form-input" placeholder="••••••••" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="form-label" for="register-confirm-password">Confirm</label>
+                            <div class="input-wrapper">
+                                <span class="material-icons-round input-icon">lock</span>
+                                <input type="password" id="register-confirm-password" class="form-input" placeholder="••••••••" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="register-agree" required>
+                            <span>I agree to the Terms & Conditions</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                </form>
+                <div class="auth-footer">
+                    <span>Already have an account? </span>
+                    <a href="#" id="link-to-login">Sign in</a>
+                </div>
+            </div>
+
+            <!-- Forgot Password Card -->
+            <div id="forgot-card" class="card auth-card">
+                <div class="auth-logo-wrapper">
+                    <div class="auth-logo-icon">
+                        <span class="material-icons-round">bolt</span>
+                    </div>
+                    <span class="auth-logo-text">TaskFlow Pro</span>
+                </div>
+                <div class="auth-header">
+                    <h2>Forgot Password</h2>
+                    <p>Enter your email to receive recovery instructions.</p>
+                </div>
+                <form id="forgot-form">
+                    <div class="form-group">
+                        <label class="form-label" for="forgot-email">Email Address</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons-round input-icon">email</span>
+                            <input type="email" id="forgot-email" class="form-input" placeholder="name@company.com" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Send Instructions</button>
+                </form>
+                <div class="auth-footer">
+                    <a href="#" id="link-forgot-to-login">Back to Sign In</a>
+                </div>
+            </div>
+
+            <!-- Reset Password Card -->
+            <div id="reset-card" class="card auth-card">
+                <div class="auth-logo-wrapper">
+                    <div class="auth-logo-icon">
+                        <span class="material-icons-round">bolt</span>
+                    </div>
+                    <span class="auth-logo-text">TaskFlow Pro</span>
+                </div>
+                <div class="auth-header">
+                    <h2>Reset Password</h2>
+                    <p>Setup a new strong password for your profile.</p>
+                </div>
+                <form id="reset-form">
+                    <input type="hidden" id="reset-token">
+                    <div class="form-group">
+                        <label class="form-label" for="reset-password">New Password</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons-round input-icon">lock</span>
+                            <input type="password" id="reset-password" class="form-input" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="reset-confirm-password">Confirm Password</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons-round input-icon">lock</span>
+                            <input type="password" id="reset-confirm-password" class="form-input" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">Update Password</button>
+                </form>
+                <div class="auth-footer">
+                    <a href="#" id="link-reset-to-login">Back to Sign In</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- =======================================================================
+         Protected Main Layout Frame (Sidebar, Header, Main Content Area)
+         ======================================================================= -->
+    <div id="app-layout">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <div class="sidebar-logo-icon">
+                    <span class="material-icons-round">bolt</span>
+                </div>
+                <span class="sidebar-logo-text">TaskFlow Pro</span>
+            </div>
+            
+            <ul class="sidebar-menu-list">
+                <li>
+                    <a href="#/dashboard" class="active">
+                        <span class="material-icons-round">dashboard</span>
+                        <span class="sidebar-menu-text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/tasks">
+                        <span class="material-icons-round">assignment</span>
+                        <span class="sidebar-menu-text">Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/projects">
+                        <span class="material-icons-round">folder</span>
+                        <span class="sidebar-menu-text">Projects</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/profile">
+                        <span class="material-icons-round">person</span>
+                        <span class="sidebar-menu-text">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/settings">
+                        <span class="material-icons-round">settings</span>
+                        <span class="sidebar-menu-text">Settings</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="sidebar-footer">
+                <div class="user-display-avatar avatar-bg-avatar1">AR</div>
+                <div class="sidebar-user-meta">
+                    <span class="user-display-name">Alex Rivera</span>
+                    <span class="user-display-role">Product Manager</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Top Header Navigation Bar -->
+        <header class="header">
+            <div class="header-left">
+                <button id="sidebar-collapse-btn" class="header-btn" title="Toggle Sidebar">
+                    <span class="material-icons-round">menu</span>
+                </button>
+                <span id="header-current-date" class="date-display">Monday, Jun 24</span>
+                <div class="search-bar">
+                    <span class="material-icons-round input-icon" style="left: 10px; font-size: 18px;">search</span>
+                    <input type="text" id="header-search-bar" class="search-input" placeholder="Search tasks...">
+                </div>
+            </div>
+
+            <div class="header-right">
+                <!-- Theme Mode Toggle -->
+                <button id="theme-toggle-btn" class="header-btn" title="Toggle Theme">
+                    <span class="material-icons-round">dark_mode</span>
+                </button>
+
+                <!-- Notifications Toggle -->
+                <div class="header-notif-container">
+                    <button id="header-notif-bell" class="header-btn" title="Notifications">
+                        <span class="material-icons-round">notifications</span>
+                        <span id="header-notif-badge" class="badge-count">2</span>
+                    </button>
+
+                    <!-- Notifications Dropdown panel -->
+                    <div id="notif-dropdown-panel" class="dropdown-panel">
+                        <div class="notif-panel-header">
+                            <h4>Notifications</h4>
+                        </div>
+                        <div id="notif-dropdown-list" class="notif-dropdown-list">
+                            <!-- Items populated dynamically -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Dropdown Trigger -->
+                <div class="header-profile-menu">
+                    <div id="header-profile-trigger" class="header-profile-box">
+                        <div class="user-display-avatar avatar-bg-avatar1" style="width: 32px; height: 32px; min-width: 32px; font-size: 11px;">AR</div>
+                        <span class="material-icons-round profile-trigger-icon">expand_more</span>
+                    </div>
+
+                    <!-- Profile Dropdown panel -->
+                    <div id="profile-dropdown-panel" class="dropdown-panel">
+                        <div class="dropdown-header">
+                            <h4 class="user-display-name">Alex Rivera</h4>
+                            <p class="user-display-role">Product Manager</p>
+                        </div>
+                        <ul class="dropdown-menu-list">
+                            <li>
+                                <a href="#/profile">
+                                    <span class="material-icons-round">account_circle</span>
+                                    <span>My Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#/settings">
+                                    <span class="material-icons-round">settings</span>
+                                    <span>Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="btn-logout-trigger danger-item">
+                                    <span class="material-icons-round">logout</span>
+                                    <span>Sign Out</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="app-view active">
+                <div class="view-header">
+                    <div class="view-title-details">
+                        <h1>Dashboard</h1>
+                        <p>Welcome back, <span class="user-display-name">Alex</span>! Here is your workspace metrics summary.</p>
+                    </div>
+                    <div class="view-actions">
+                        <button class="btn btn-primary" id="btn-create-task-modal">
+                            <span class="material-icons-round">add</span>
+                            <span>Add Task</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Counters Grid -->
+                <div id="dashboard-stats-grid" class="stats-grid">
+                    <!-- Cards populated by JS -->
+                </div>
+
+                <!-- Layout Splits Grid -->
+                <div class="dashboard-grid">
+                    
+                    <!-- Left Split -->
+                    <div class="dashboard-left-split">
+                        
+                        <!-- Chart Performance Card -->
+                        <div class="card" style="margin-bottom: 28px;">
+                            <div class="dashboard-card-title">
+                                <span>Activity Analysis</span>
+                                <span class="badge badge-label">Tasks completed</span>
+                            </div>
+                            <div class="chart-container" id="dashboard-chart-svg-container">
+                                <!-- SVG Chart drawn by JS -->
+                            </div>
+                        </div>
+
+                        <!-- Today's Tasks & Recent Actions -->
+                        <div class="dashboard-card-row">
+                            <div class="card">
+                                <div class="dashboard-card-title">Today's Tasks</div>
+                                <div id="todays-tasks-list">
+                                    <!-- List rendered dynamically -->
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="dashboard-card-title">Recent Tasks</div>
+                                <div id="recent-tasks-list">
+                                    <!-- List rendered dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Split -->
+                    <div class="dashboard-right-split">
+                        
+                        <!-- Productivity Progress Card -->
+                        <div class="card" id="dashboard-progress-card" style="margin-bottom: 28px;">
+                            <!-- Progress bar metrics by JS -->
+                        </div>
+
+                        <!-- Upcoming Deadlines Card -->
+                        <div class="card" style="margin-bottom: 28px;">
+                            <div class="dashboard-card-title">Upcoming Deadlines</div>
+                            <div id="upcoming-deadlines-list">
+                                <!-- Deadlines listed dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Recent projects summary -->
+                        <div class="card" style="margin-bottom: 28px;">
+                            <div class="dashboard-card-title">Active Projects</div>
+                            <div id="recent-projects-list">
+                                <!-- Projects summary listed dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Activity timeline stream -->
+                        <div class="card">
+                            <div class="dashboard-card-title">Recent Activity</div>
+                            <div id="activity-feed-list">
+                                <!-- Timeline nodes written dynamically -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Tasks View -->
+            <div id="tasks-view" class="app-view">
+                <div class="view-header">
+                    <div class="view-title-details">
+                        <h1>Tasks Matrix</h1>
+                        <p>Organize, schedule and update team task priorities.</p>
+                    </div>
+                    <div class="view-actions" style="display: flex; gap: 12px;">
+                        <div class="btn-group" style="display: flex; border: 1px solid var(--color-border); border-radius: var(--radius-sm); overflow: hidden; background-color: var(--color-card);">
+                            <button id="btn-view-kanban" class="btn btn-secondary active" style="border: none; border-radius: 0; padding: 10px 14px;"><span class="material-icons-round">grid_view</span></button>
+                            <button id="btn-view-table" class="btn btn-secondary" style="border: none; border-radius: 0; padding: 10px 14px;"><span class="material-icons-round">table_rows</span></button>
+                        </div>
+                        <button class="btn btn-primary" onclick="Tasks.openCreateModal()">
+                            <span class="material-icons-round">add</span>
+                            <span>New Task</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Controls & Filters Strip -->
+                <div class="task-controls-bar">
+                    <div class="task-filters">
+                        <input type="text" id="task-search-input" class="search-input" placeholder="Search title or description..." style="width: 240px; background-color: var(--color-card);">
+                        
+                        <select id="task-filter-status" class="select-filter">
+                            <option value="all">All Statuses</option>
+                            <option value="todo">To Do</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+
+                        <select id="task-filter-priority" class="select-filter">
+                            <option value="all">All Priorities</option>
+                            <option value="high">High</option>
+                            <option value="medium">Medium</option>
+                            <option value="low">Low</option>
+                        </select>
+
+                        <select id="task-filter-project" class="select-filter">
+                            <option value="all">All Projects</option>
+                            <!-- Options by JS -->
+                        </select>
+                    </div>
+
+                    <div class="task-sorting">
+                        <select id="task-sort-by" class="select-filter">
+                            <option value="dueDate-asc">Due Date (Asc)</option>
+                            <option value="dueDate-desc">Due Date (Desc)</option>
+                            <option value="priority-high">Priority (High first)</option>
+                            <option value="priority-low">Priority (Low first)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Kanban Board view Container -->
+                <div id="tasks-view-kanban" class="kanban-grid">
+                    <!-- Column Todo -->
+                    <div id="kanban-col-todo" class="kanban-column">
+                        <div class="kanban-col-header">
+                            <span>To Do</span>
+                            <span class="kanban-col-count" id="count-todo">0</span>
+                        </div>
+                        <div class="kanban-cards-list"></div>
+                    </div>
+                    <!-- Column In Progress -->
+                    <div id="kanban-col-inprogress" class="kanban-column">
+                        <div class="kanban-col-header">
+                            <span>In Progress</span>
+                            <span class="kanban-col-count" id="count-inprogress">0</span>
+                        </div>
+                        <div class="kanban-cards-list"></div>
+                    </div>
+                    <!-- Column Completed -->
+                    <div id="kanban-col-completed" class="kanban-column">
+                        <div class="kanban-col-header">
+                            <span>Completed</span>
+                            <span class="kanban-col-count" id="count-completed">0</span>
+                        </div>
+                        <div class="kanban-cards-list"></div>
+                    </div>
+                </div>
+
+                <!-- Grid/Table View Container -->
+                <div id="tasks-view-table" style="display: none;">
+                    <div class="table-responsive">
+                        <table class="tf-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50px;">Status</th>
+                                    <th>Task Title</th>
+                                    <th>Label</th>
+                                    <th>Priority</th>
+                                    <th>State</th>
+                                    <th>Due Date</th>
+                                    <th style="width: 100px;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="task-table-body">
+                                <!-- Rows inserted dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Table pagination controls -->
+                    <div class="pagination-container">
+                        <div id="task-pagination">
+                            <!-- Controls dynamically generated -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects View -->
+            <div id="projects-view" class="app-view">
+                <div class="view-header">
+                    <div class="view-title-details">
+                        <h1>Projects Board</h1>
+                        <p>Manage workspaces, assign team members, and track completion progress.</p>
+                    </div>
+                    <div class="view-actions">
+                        <button class="btn btn-primary" id="btn-create-project-modal">
+                            <span class="material-icons-round">add</span>
+                            <span>Create Project</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Grid lists of projects cards -->
+                <div id="projects-grid" class="projects-grid">
+                    <!-- Project Cards rendered dynamically -->
+                </div>
+            </div>
+
+            <!-- Profile View -->
+            <div id="profile-view" class="app-view">
+                <div class="view-header">
+                    <div class="view-title-details">
+                        <h1>My Profile</h1>
+                        <p>Customize your user details and access credentials.</p>
+                    </div>
+                </div>
+
+                <div class="profile-grid">
+                    <!-- Left column: avatar and quick preview -->
+                    <div class="card profile-avatar-card">
+                        <div class="profile-avatar-large user-display-avatar avatar-bg-avatar1">AR</div>
+                        <div>
+                            <h3 class="user-display-name" style="font-size: 18px; font-weight: 600;">Alex Rivera</h3>
+                            <p class="user-display-role" style="font-size: 13px; color: var(--color-text-muted);">Product Manager</p>
+                        </div>
+                        <div style="width: 100%; border-top: 1px solid var(--color-border); padding-top: 16px;">
+                            <span class="form-label" style="text-align: left;">Choose Avatar Style</span>
+                            <div class="avatar-selector">
+                                <div class="avatar-option avatar-bg-avatar1" data-avatar="avatar1"></div>
+                                <div class="avatar-option avatar-bg-avatar2" data-avatar="avatar2"></div>
+                                <div class="avatar-option avatar-bg-avatar3" data-avatar="avatar3"></div>
+                                <div class="avatar-option avatar-bg-avatar4" data-avatar="avatar4"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Forms -->
+                    <div>
+                        <!-- Personal details form -->
+                        <div class="card settings-section-card">
+                            <h3 class="settings-section-title">Personal Information</h3>
+                            <form id="profile-info-form">
+                                <div class="form-group row">
+                                    <div>
+                                        <label class="form-label" for="profile-name">Full Name</label>
+                                        <input type="text" id="profile-name" class="form-input" style="padding-left: 14px;" required>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="profile-role">Job Title</label>
+                                        <input type="text" id="profile-role" class="form-input" style="padding-left: 14px;">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="profile-email">Email Address</label>
+                                    <input type="email" id="profile-email" class="form-input" style="padding-left: 14px;" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </form>
+                        </div>
+
+                        <!-- Password updates form -->
+                        <div class="card settings-section-card">
+                            <h3 class="settings-section-title">Change Password</h3>
+                            <form id="profile-password-form">
+                                <div class="form-group">
+                                    <label class="form-label" for="profile-old-password">Current Password</label>
+                                    <input type="password" id="profile-old-password" class="form-input" style="padding-left: 14px;" placeholder="••••••••" required>
+                                </div>
+                                <div class="form-group row">
+                                    <div>
+                                        <label class="form-label" for="profile-new-password">New Password</label>
+                                        <input type="password" id="profile-new-password" class="form-input" style="padding-left: 14px;" placeholder="••••••••" required>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="profile-confirm-new-password">Confirm Password</label>
+                                        <input type="password" id="profile-confirm-new-password" class="form-input" style="padding-left: 14px;" placeholder="••••••••" required>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Update Password</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings View -->
+            <div id="settings-view" class="app-view">
+                <div class="view-header">
+                    <div class="view-title-details">
+                        <h1>System Settings</h1>
+                        <p>Configure dashboard properties, UI customization and security logs.</p>
+                    </div>
+                </div>
+
+                <div style="max-width: 720px; display: flex; flex-direction: column; gap: 24px;">
+                    <!-- UI preferences -->
+                    <div class="card settings-section-card">
+                        <h3 class="settings-section-title">Preferences</h3>
+                        <div class="form-group">
+                            <label class="checkbox-label" style="margin-bottom: 12px;">
+                                <input type="checkbox" checked>
+                                <span>Receive daily digest email summaries of task completions</span>
+                            </label>
+                            <label class="checkbox-label" style="margin-bottom: 12px;">
+                                <input type="checkbox" checked>
+                                <span>Show real-time toast alert banners for team updates</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox">
+                                <span>Include completed projects inside dashboard charts</span>
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" onclick="Utils.toast('Preferences saved successfully', 'success')">Save Preferences</button>
+                    </div>
+
+                    <!-- Security config -->
+                    <div class="card settings-section-card">
+                        <h3 class="settings-section-title">Security Settings</h3>
+                        <div class="form-group">
+                            <label class="checkbox-label" style="margin-bottom: 12px;">
+                                <input type="checkbox" checked>
+                                <span>Enforce Multi-Factor Authentication (MFA) on login</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox">
+                                <span>Terminate existing sessions on passwords modification</span>
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" onclick="Utils.toast('Security rules updated', 'success')">Update Security</button>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div class="card settings-section-card danger-zone">
+                        <h3 class="settings-section-title">Danger Zone</h3>
+                        <p class="text-muted" style="font-size: 13px; margin-bottom: 20px;">Actions here will permanently purge records. This operation is irreversible.</p>
+                        <div style="display: flex; gap: 12px;">
+                            <button class="btn btn-danger" onclick="if(confirm('Are you sure you want to clear all mock data?')) { localStorage.clear(); location.reload(); }">Wipe Mock Database</button>
+                            <button class="btn btn-secondary" style="color: var(--color-danger); border-color: rgba(239, 68, 68, 0.4);" onclick="alert('Account deletion request queued.')">Delete Account</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 404 View -->
+            <div id="notfound-view" class="app-view">
+                <div class="empty-state">
+                    <span class="material-icons-round empty-icon" style="font-size: 64px; color: var(--color-primary);">explore_off</span>
+                    <h3>404 - Page Not Found</h3>
+                    <p>The layout path you are trying to visit does not exist or has been shifted elsewhere.</p>
+                    <a href="#/dashboard" class="btn btn-primary">Return to Dashboard</a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- =======================================================================
+         Modal overlays (Forms / Confirmations)
+         ======================================================================= -->
+    
+    <!-- Task Form Modal -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="task-modal-title">Create New Task</h3>
+                <button class="modal-close"><span class="material-icons-round">close</span></button>
+            </div>
+            <form id="task-modal-form">
+                <div class="modal-body">
+                    <input type="hidden" id="task-form-id">
+                    <div class="form-group">
+                        <label class="form-label" for="task-form-title">Task Title</label>
+                        <input type="text" id="task-form-title" class="form-input" style="padding-left: 14px;" placeholder="Implement analytics charts..." required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="task-form-desc">Description</label>
+                        <textarea id="task-form-desc" class="form-input" style="padding-left: 14px; height: 100px; resize: none;" placeholder="Write a short task summary..."></textarea>
+                    </div>
+                    <div class="form-group row">
+                        <div>
+                            <label class="form-label" for="task-form-priority">Priority</label>
+                            <select id="task-form-priority" class="form-input" style="padding-left: 14px;">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label" for="task-form-status">Status</label>
+                            <select id="task-form-status" class="form-input" style="padding-left: 14px;">
+                                <option value="todo">To Do</option>
+                                <option value="in-progress">In Progress</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div>
+                            <label class="form-label" for="task-form-label">Label</label>
+                            <select id="task-form-label" class="form-input" style="padding-left: 14px;">
+                                <option value="Feature">Feature</option>
+                                <option value="UI/UX">UI/UX</option>
+                                <option value="Core">Core</option>
+                                <option value="Content">Content</option>
+                                <option value="Bug">Bug</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label" for="task-form-date">Due Date</label>
+                            <input type="date" id="task-form-date" class="form-input" style="padding-left: 14px;" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="task-form-project">Link to Project</label>
+                        <select id="task-form-project" class="form-input" style="padding-left: 14px;">
+                            <!-- Option tags rendered by JS -->
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Project Form Modal -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="project-modal-title">Create Project</h3>
+                <button class="modal-close"><span class="material-icons-round">close</span></button>
+            </div>
+            <form id="project-modal-form">
+                <div class="modal-body">
+                    <input type="hidden" id="project-form-id">
+                    <div class="form-group">
+                        <label class="form-label" for="project-form-name">Project Name</label>
+                        <input type="text" id="project-form-name" class="form-input" style="padding-left: 14px;" placeholder="Mobile Development App..." required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="project-form-desc">Project Description</label>
+                        <textarea id="project-form-desc" class="form-input" style="padding-left: 14px; height: 100px; resize: none;" placeholder="Add project details..."></textarea>
+                    </div>
+                    <div class="form-group row">
+                        <div>
+                            <label class="form-label" for="project-form-deadline">Deadline Date</label>
+                            <input type="date" id="project-form-deadline" class="form-input" style="padding-left: 14px;" required>
+                        </div>
+                        <div>
+                            <label class="form-label" for="project-form-team">Team Members</label>
+                            <input type="text" id="project-form-team" class="form-input" style="padding-left: 14px;" placeholder="Sarah Chen, John Doe">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-cancel">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reusable Confirmation Dialog -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content" style="max-width: 400px;">
+            <div class="modal-header">
+                <h3>Are you absolutely sure?</h3>
+                <button class="modal-close"><span class="material-icons-round">close</span></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-muted" style="font-size: 13.5px; line-height: 1.5;">This action cannot be undone. Doing this will remove the document permanently from the workspace registry database.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-cancel-delete" class="btn btn-secondary">Cancel</button>
+                <button type="button" id="btn-confirm-delete" class="btn btn-danger">Confirm Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =======================================================================
+         Modular Javascript Application Files
+         ======================================================================= -->
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/tasks.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
