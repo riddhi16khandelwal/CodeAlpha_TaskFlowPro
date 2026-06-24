@@ -127,12 +127,12 @@ const Tasks = {
 
         const optionsHtml = `
             <option value="all">All Projects</option>
-            ${this.projects.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+            ${this.projects.map(p => `<option value="${p._id}">${p.name}</option>`).join('')}
         `;
 
         const formOptionsHtml = `
             <option value="">No Project</option>
-            ${this.projects.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+            ${this.projects.map(p => `<option value="${p._id}">${p.name}</option>`).join('')}
         `;
 
         if (filterDropdown) filterDropdown.innerHTML = optionsHtml;
@@ -493,7 +493,7 @@ const Tasks = {
             status: Utils.qs('#task-form-status').value,
             label: Utils.qs('#task-form-label').value,
             dueDate: Utils.qs('#task-form-date').value,
-            projectId: Utils.qs('#task-form-project').value || null,
+          project: Utils.qs('#task-form-project').value || null,
             assignedUser: Auth.currentUser.name
         };
 
