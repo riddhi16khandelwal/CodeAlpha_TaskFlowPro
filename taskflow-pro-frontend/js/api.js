@@ -1,7 +1,7 @@
 
 
 const API_CONFIG = {
-BASE_URL: 'http://localhost:5000/api/v1', 
+BASE_URL: 'https://taskflow-pro-backend-7k0h.onrender.com/api/v1', 
     USE_MOCK_FALLBACK: false 
 };
 
